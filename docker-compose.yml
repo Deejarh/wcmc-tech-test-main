@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  postgresql:
+    environment:
+      POSTGRES_PASSWORD: postgres
+    image: postgis/postgis:14-3.2
+    ports:
+      - 3306:3306
+    volumes:
+      - postgresql-store:/var/lib/postgresql
+  api:
+    build: ./api/
+    command: /bin/sh -c "rm -rf /app/tmp/pids/server.pid && bin/rails server -b 0.0.0.0 -p 3000"
+    depends_on:
+      - postgresql
+    environment:
+      APP_DATABASE_HOST: postgresql
+    ports:
+      - '3000:3000'
+      - '3001:3001'
+    tty: true
+    volumes:
+      - ./api:/app
+      - bundler-store:/usr/local/bundle
+  ui:
+    command: /bin/sh -c 'RAILS_API_ENDPOINT=http://localhost:3000 yarn nuxt'
+    environment:
+      HOST: 0.0.0.0
+    image: node:16-alpine
+    ports:
+      - '8080:8080'
+    tty: true
+    volumes:
+      - "./ui:/app"
+      - node-modules-store:/app/node_modules
+    working_dir: /app
+
+volumes:
+  postgresql-store:
+  bundler-store:
+  node-modules-store:
