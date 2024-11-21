@@ -23,7 +23,7 @@ namespace :import do
             sp.scientific_name_authorship = row['scientificNameAuthorship']
           end
 
-          puts "specie created"
+          puts "specie processed"
 
           # Find or create the location with additional fields
           location = Location.find_or_create_by(
@@ -35,7 +35,7 @@ namespace :import do
             loc.locality = row['locality']
           end
 
-          puts "location created"
+          puts "location processed"
 
           # Create the association between specie and location
           SpecieLocation.find_or_create_by(

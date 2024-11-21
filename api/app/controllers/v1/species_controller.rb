@@ -6,9 +6,13 @@ module V1
       longitude = params[:longitude]
 
       begin
-        location = Location.find_by!(latitude:, longitude:)
-        species = location.species.includes(:locations)
-        render json: species, each_serializer: SpecieSerializer, status: :ok
+        species_data = Rails.cache.fetch("species_by_location/#{latitude}/#{longitude}", expires_in: 1.hour) do
+          location = Location.find_by!(latitude:, longitude:)
+          species = location.species
+          SpecieSerializer.render(species, location: location)
+        end
+
+        render json: species_data, status: :ok
       rescue ActiveRecord::RecordNotFound
         render json: { error: 'Location not found' }, status: :not_found
       rescue StandardError => e
@@ -21,16 +25,22 @@ module V1
       scientific_name_id = params[:scientific_name_id]
 
       begin
-        species = Specie.includes(:locations).where(scientific_name_id:)
+        species_data = Rails.cache.fetch("species_by_scientific_name_id/#{scientific_name_id}", expires_in: 1.hour) do
+          species = Specie.includes(:locations).where(scientific_name_id:)
 
-        if species.any?
-          species_with_locations = species.flat_map do |specie|
-            specie.locations.map do |location|
-              specie.as_json.except("id").merge(location.as_json)
+          if species.any?
+            species.flat_map do |specie|
+              specie.locations.map do |location|
+                SpecieSerializer.render_as_hash(specie, location: location)
+              end
             end
+          else
+            nil # Cache the fact that no species were found
           end
+        end
 
-          render json: species_with_locations, status: :ok
+        if species_data
+          render json: species_data, status: :ok
         else
           render json: { error: 'No species found with the given scientific_name_id' }, status: :not_found
         end
