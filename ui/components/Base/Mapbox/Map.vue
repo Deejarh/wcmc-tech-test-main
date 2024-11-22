@@ -103,20 +103,23 @@ export default {
     },
     addEventListeners () {
       this.map.on('click', 'clusters', (e) => {
-        const features = this.map.queryRenderedFeatures(e.point, { layers: ['clusters'] })
+        const features = this.map.queryRenderedFeatures(e.point, {
+          layers: ['clusters']
+        })
         if (features.length > 0) {
           const clusterId = features[0].properties.cluster_id
-          this.map.getSource('arcgis-data').getClusterExpansionZoom(
-            clusterId,
-            (err, zoom) => {
-              if (err) { return }
+          this.map
+            .getSource('arcgis-data')
+            .getClusterExpansionZoom(clusterId, (err, zoom) => {
+              if (err) {
+                return
+              }
 
               this.map.easeTo({
                 center: features[0].geometry.coordinates,
                 zoom
               })
-            }
-          )
+            })
         }
       })
       this.map.on('click', 'unclustered-point', (event) => {

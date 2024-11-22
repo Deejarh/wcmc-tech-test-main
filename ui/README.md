@@ -41,6 +41,10 @@ This Nuxt application is designed to display geospatial datasets using Mapbox an
 
 - Create a reusable Error Alert component that accepts an error message as a prop and displays it gracefully.
 
+### Event Listener Management:
+
+- Ensure Mapbox event listeners are properly cleaned up in the beforeDestroy lifecycle hook to prevent memory leaks and improve performance by using map.off() for all registered events.
+
 ### Utility Functions for Data Formatting:
 - Add utility functions to standardize API response formatting (e.g., scientific_name → Scientific Name).
 
@@ -50,9 +54,7 @@ This Nuxt application is designed to display geospatial datasets using Mapbox an
 ### CI/CD Integration:
 
 - Add GitHub Actions for linting, testing, and deployment pipelines.
-### Improved Reactivity for Current Scientific ID:
 
-- Debug and resolve the issue to ensure currentScientificId updates correctly when the user changes pages in the Location tab.
 ### Enhanced UI/UX:
 
 - Add loading spinners for API calls.
