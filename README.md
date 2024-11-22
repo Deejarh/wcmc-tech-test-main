@@ -20,13 +20,15 @@ to use any adapter you prefer (SQLite, MySQL,...).
 
 ## Local use
 ### Database setup
-1. `cd api` - Change to the api directory
-2. `bin/setup` - Initialise the database with seed data
+ `bin/setup` - Initialise the database with seed data
 
 ### Server startup  
 
 1. **Rails:** start server - `bundle exec rails s`
 2. **Nuxt:** start server - `yarn dev`
+
+### Unit Testing
+`bundle exec rspec` 
 
 ### Links
 
