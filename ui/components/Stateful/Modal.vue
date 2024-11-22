@@ -6,7 +6,7 @@
     >
       <template #header>
         <div v-if="isLoading">
-          Loadingg
+          Loading
         </div>
         <div v-else class=" flex justify-between  py-3">
           <div>

@@ -19,8 +19,11 @@ The databse adapter has been setup to **PostgreSQL** as a default, but you are f
 to use any adapter you prefer (SQLite, MySQL,...).
 
 ## Local use
+### Database setup
+1. `cd api` - Change to the api directory
+2. `bin/setup` - Initialise the database with seed data
 
-### Server startup
+### Server startup  
 
 1. **Rails:** start server - `bundle exec rails s`
 2. **Nuxt:** start server - `yarn dev`

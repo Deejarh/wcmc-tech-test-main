@@ -1,5 +1,4 @@
 const archisUrl = 'https://services3.arcgis.com/fp1tibNcN9mbExhG/arcgis/rest/services/Fiji_Sponges_Algae/FeatureServer/0/query?outFields=*&where=1%3D1&f=geojson'
-const baseUrl = 'http://localhost:3000/v1/'
 
 const SET_ARCHIS_DATA = 'SET_ARCHIS_DATA'
 const SET_SPECIES_BY_LOCATION = 'SET_SPECIES_BY_LOCATION'
@@ -30,13 +29,13 @@ const actions = {
   },
   async getSpeciesByLocation ({ commit }, location) {
     const response = await this.$axios.get(
-        `${baseUrl}/species/by_location?latitude=${location.lat}&longitude=${location.lng}`
+        `/api/species/by_location?latitude=${location.lat}&longitude=${location.lng}`
     )
     commit('SET_SPECIES_BY_LOCATION', response.data)
   },
   async getLocationsBySpecies ({ commit }, scientificNameId) {
     const response = await this.$axios.get(
-        `${baseUrl}/species/by_scientific_name_id?scientific_name_id=${scientificNameId}`
+        `/api/species/by_scientific_name_id?scientific_name_id=${scientificNameId}`
     )
     commit('SET_LOCATIONS_BY_SPECIES', response.data)
   }

@@ -1,69 +1,60 @@
-# nuxt-frontend
 
-## Build Setup
+# README
 
-```bash
-# install dependencies
-$ yarn install
+# Species Locator with Mapbox
 
-# serve with hot reload at localhost:3000
-$ yarn dev
-
-# build for production and launch server
-$ yarn build
-$ yarn start
-
-# generate static project
-$ yarn generate
-```
-
-For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
-
-## Special Directories
-
-You can create the following extra directories, some of which have special behaviors. Only `pages` is required; you can delete them if you don't want to use their functionality.
-
-### `assets`
-
-The assets directory contains your uncompiled assets such as Stylus or Sass files, images, or fonts.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/assets).
-
-### `components`
-
-The components directory contains your Vue.js components. Components make up the different parts of your page and can be reused and imported into your pages, layouts and even other components.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/components).
-
-### `layouts`
-
-Layouts are a great help when you want to change the look and feel of your Nuxt app, whether you want to include a sidebar or have distinct layouts for mobile and desktop.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/layouts).
+## Overview
+This Nuxt application is designed to display geospatial datasets using Mapbox and integrate with API endpoints for querying species information based on geographical locations and scientific name identifiers. It provides an interactive map with clustering, pagination, and modal-based UI for detailed species and location data.
 
 
-### `pages`
+## Features
 
-This directory contains your application views and routes. Nuxt will read all the `*.vue` files inside this directory and setup Vue Router automatically.
+### Interactive Map with Clustering:
+- High-proximity clusters are highlighted in red, while low-proximity clusters are shown in gray.
+- Clicking on individual points provides details about the species in a modal.
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/get-started/routing).
+### Pagination and Tabs:
+- A paginated view to navigate through species or locations.
+- Tabs to toggle between species and locations.
+- Reusable Components with VueTailwind:Includes modal, button, and pagination components styled and integrated with VueTailwind.
 
-### `plugins`
+### API Integration:
+- Endpoints for fetching species by location and locations by species have been integrated seamlessly.
 
-The plugins directory contains JavaScript plugins that you want to run before instantiating the root Vue.js Application. This is the place to add Vue plugins and to inject functions or constants. Every time you need to use `Vue.use()`, you should create a file in `plugins/` and add its path to plugins in `nuxt.config.js`.
+### State Management
+- Used Vuex for scalable and centralized state management.
+- The map module handles fetching species and location data based on user interactions.
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/plugins).
+## Best Practices
+### Scalable State Management:
+- Centralized state handling in the Vuex store ensures scalability and ease of maintenance.
 
-### `static`
+### Component Reusability:
+- Used VueTailwind components for buttons, modals, and pagination, promoting consistent design and code reuse.
 
-This directory contains your static files. Each file inside this directory is mapped to `/`.
+### Modular Codebase:
+- Followed Nuxt’s modular architecture for better separation of concerns.
 
-Example: `/static/robots.txt` is mapped as `/robots.txt`.
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/static).
+## Future Improvements
+### Enhanced Error Handling:
 
-### `store`
+- Create a reusable Error Alert component that accepts an error message as a prop and displays it gracefully.
 
-This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
+### Utility Functions for Data Formatting:
+- Add utility functions to standardize API response formatting (e.g., scientific_name → Scientific Name).
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).
+### Testing:
+
+- Write component tests using @nuxt/test-utils for improved reliability and reduced regression.
+### CI/CD Integration:
+
+- Add GitHub Actions for linting, testing, and deployment pipelines.
+### Improved Reactivity for Current Scientific ID:
+
+- Debug and resolve the issue to ensure currentScientificId updates correctly when the user changes pages in the Location tab.
+### Enhanced UI/UX:
+
+- Add loading spinners for API calls.
+- Improve tooltip designs for better user interaction
+
